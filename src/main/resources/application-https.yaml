@@ -1,0 +1,7 @@
+server:
+  address: world.antonio3a.aaa
+  port: 8861
+  ssl:
+    enabled: true
+    certificate: classpath:ssl/antonio3a.aaa.crt
+    certificate-private-key: classpath:ssl/antonio3a.aaa.key
