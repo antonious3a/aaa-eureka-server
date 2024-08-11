@@ -70,7 +70,6 @@
                     <image>
                         <name>antonio3a/${project.artifactId}:${project.version}</name>
                     </image>
-                    <pullPolicy>NEVER </pullPolicy>
                 </configuration>
             </plugin>
 
@@ -113,5 +112,4 @@
             </snapshots>
         </repository>
     </repositories>
-
 </project>
