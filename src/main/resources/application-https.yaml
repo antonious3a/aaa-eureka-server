@@ -1,7 +1,6 @@
 server:
-  address: world.antonio3a.aaa
-  port: 8861
+  address: eureka.antonio3a.aaa
   ssl:
     enabled: true
-    certificate: classpath:ssl/antonio3a.aaa.crt
-    certificate-private-key: classpath:ssl/antonio3a.aaa.key
+    certificate: ${HOME}/ssl/antonio3a.aaa.crt
+    certificate-private-key: ${HOME}/ssl/antonio3a.aaa.key
