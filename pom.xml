@@ -68,8 +68,13 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>antonio3a/${project.artifactId}:${project.version}</name>
+                        <name>antonio3a/${project.artifactId}</name>
+                        <tags>
+                            <tag>antonio3a/${project.artifactId}:${project.version}</tag>
+                        </tags>
                     </image>
+                    <createdDate>${maven.build.timestamp}</createdDate>
+                    <pullPolicy>IF_NOT_PRESENT</pullPolicy>
                 </configuration>
             </plugin>
 
