@@ -1,6 +1,0 @@
-server:
-  address: eureka.antonio3a.aaa
-  ssl:
-    enabled: true
-    certificate: ${HOME}/ssl/antonio3a.aaa.crt
-    certificate-private-key: ${HOME}/ssl/antonio3a.aaa.key
