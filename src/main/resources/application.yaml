@@ -9,8 +9,6 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
-  instance:
-    instance-id: ${spring.application.name}:${random.long(100000,999999)}
 
 management:
   info:
@@ -26,7 +24,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: ["health", "info", "metrics", "prometheus"]
     enabled-by-default: true
   endpoint:
     health:
