@@ -5,6 +5,10 @@ x-common: &common
   networks:
     - antonio3a-network
   restart: always
+  deploy:
+    resources:
+      limits:
+        memory: 1G
 
 x-common-env: &common-env
   EUREKA_ENVIRONMENT: development
