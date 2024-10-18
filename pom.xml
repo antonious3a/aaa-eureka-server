@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.antonio3a</groupId>
     <artifactId>aaa-eureka-server</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>aaa-eureka-server</name>
     <description>AAA eureka-server</description>
     <properties>
@@ -76,34 +76,6 @@
                     <createdDate>${maven.build.timestamp}</createdDate>
                     <pullPolicy>IF_NOT_PRESENT</pullPolicy>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.1.2184</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.9</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
