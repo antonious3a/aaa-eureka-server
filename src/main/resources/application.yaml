@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: antonio3a-eureka-server
+    version: 1.1.0
 
 eureka:
   client:
@@ -20,18 +21,23 @@ management:
       enabled: true
     git:
       mode: full
-
   endpoints:
     web:
       exposure:
         include: ["health", "info", "metrics", "prometheus"]
-    enabled-by-default: true
+    access:
+      default: read_only
   endpoint:
     health:
       show-details: always
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
 
 info:
   app:
     name: ${spring.application.name}
     description: ${spring.application.name} description
-    version: ${project.version}
+    version: ${spring.application.version}
