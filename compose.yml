@@ -1,9 +1,7 @@
-version: '3.8'
-
 x-common: &common
-  image: antonio3a/aaa-eureka-server
+  image: antonio3a/aaa-eureka-server:1.1.0
   networks:
-    - antonio3a-network
+    - antonio3a-bridge
   restart: always
   deploy:
     resources:
@@ -23,10 +21,15 @@ services:
     environment:
       <<: *common-env
       SERVER_PORT: 8761
-      SPRING_PROFILES_ACTIVE: peer1
       eureka.client.service-url.defaultZone: http://eureka2.antonio3a.aaa:8762/eureka/, http://eureka3.antonio3a.aaa:8763/eureka/
     ports:
       - "8761:8761"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8761/actuator/health/readinessState | grep UP || exit 1"
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   antonio3a-eureka-2:
     <<: *common
@@ -35,10 +38,15 @@ services:
     environment:
       <<: *common-env
       SERVER_PORT: 8762
-      SPRING_PROFILES_ACTIVE: peer2
       eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa:8761/eureka/, http://eureka3.antonio3a.aaa:8763/eureka/
     ports:
       - "8762:8762"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8762/actuator/health/readinessState | grep UP || exit 1"
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   antonio3a-eureka-3:
     <<: *common
@@ -47,11 +55,16 @@ services:
     environment:
       <<: *common-env
       SERVER_PORT: 8763
-      SPRING_PROFILES_ACTIVE: peer3
       eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa:8761/eureka/, http://eureka2.antonio3a.aaa:8762/eureka/
     ports:
       - "8763:8763"
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8763/actuator/health/readinessState | grep UP || exit 1"
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
 networks:
-  antonio3a-network:
+  antonio3a-bridge:
     external: true
