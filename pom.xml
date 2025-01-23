@@ -68,11 +68,20 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>antonio3a/${project.artifactId}</name>
+                        <builder>bellsoft/buildpacks.builder:musl</builder>
+                        <runImage>antonio3a/bellsoft-buildpacks.alpaquita-run:musl</runImage>
+                        <name>antonio3a/${project.artifactId}:latest</name>
                         <tags>
                             <tag>antonio3a/${project.artifactId}:${project.version}</tag>
                         </tags>
                     </image>
+                    <publish>false</publish>
+                    <docker>
+                        <publishRegistry>
+                            <username>${env.DEV_GITLAB_USERNAME}</username>
+                            <password>${env.DEV_GITLAB_PASSWORD}</password>
+                        </publishRegistry>
+                    </docker>
                     <createdDate>${maven.build.timestamp}</createdDate>
                     <pullPolicy>IF_NOT_PRESENT</pullPolicy>
                 </configuration>
