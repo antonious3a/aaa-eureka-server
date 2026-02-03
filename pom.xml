@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.4</version>
+        <version>3.5.10</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.antonio3a</groupId>
@@ -15,7 +15,7 @@
     <description>AAA eureka-server</description>
     <properties>
         <java.version>21</java.version>
-        <spring-cloud.version>2024.0.1</spring-cloud.version>
+        <spring-cloud.version>2025.0.1</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -68,34 +68,27 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <builder>bellsoft/buildpacks.builder:musl</builder>
-                        <runImage>antonio3a/bellsoft-buildpacks.alpaquita-run:musl</runImage>
+                        <builder>docker.io/bellsoft/buildpacks.builder:musl</builder>
+                        <runImage>docker.io/antonio3a/bellsoft-buildpacks.alpaquita-run:musl</runImage>
                         <name>antonio3a/${project.artifactId}:latest</name>
                         <tags>
-                            <tag>antonio3a/${project.artifactId}:${project.version}</tag>
+                            <tag>quay.io/antonio3a/${project.artifactId}:latest</tag>
+                            <tag>docker.io/antonio3a/${project.artifactId}:latest</tag>
                         </tags>
                     </image>
                     <publish>false</publish>
                     <docker>
+                        <host>unix:///run/user/1000/podman/podman.sock</host>
+                        <bindHostToBuilder>true</bindHostToBuilder>
                         <publishRegistry>
                             <username>${env.DEV_GITLAB_USERNAME}</username>
                             <password>${env.DEV_GITLAB_PASSWORD}</password>
                         </publishRegistry>
                     </docker>
                     <createdDate>${maven.build.timestamp}</createdDate>
-                    <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                    <pullPolicy>ALWAYS</pullPolicy>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>netflix-candidates</id>
-            <name>Netflix Candidates</name>
-            <url>https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 </project>

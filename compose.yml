@@ -1,70 +1,56 @@
 x-common: &common
-  image: antonio3a/aaa-eureka-server:1.1.0
+  image:
   networks:
-    - antonio3a-bridge
+    - aaa-bridge
   restart: always
   deploy:
     resources:
       limits:
         memory: 1G
+  healthcheck:
+    test: "curl -fsk http://localhost/actuator/health/readinessState | grep UP || exit 1"
+    interval: 10s
+    timeout: 3s
+    retries: 3
+    start_period: 10s
 
 x-common-env: &common-env
+  SERVER_PORT: 80
   EUREKA_ENVIRONMENT: development
   EUREKA_CLIENT_FETCH-REGISTRY: true
   EUREKA_CLIENT_REGISTER-WITH-EUREKA: true
 
 services:
-  antonio3a-eureka-1:
+  eureka-1:
     <<: *common
-    container_name: antonio3a-eureka-1
+    container_name: aaa-eureka-1
     hostname: eureka1.antonio3a.aaa
     environment:
       <<: *common-env
-      SERVER_PORT: 8761
-      eureka.client.service-url.defaultZone: http://eureka2.antonio3a.aaa:8762/eureka/, http://eureka3.antonio3a.aaa:8763/eureka/
+      eureka.client.service-url.defaultZone: http://eureka2.antonio3a.aaa/eureka/, http://eureka3.antonio3a.aaa/eureka/
     ports:
-      - "8761:8761"
-    healthcheck:
-      test: "curl --fail --silent http://localhost:8761/actuator/health/readinessState | grep UP || exit 1"
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
+      - "80:8761"
 
-  antonio3a-eureka-2:
+  eureka-2:
     <<: *common
-    container_name: antonio3a-eureka-2
+    container_name: aaa-eureka-2
     hostname: eureka2.antonio3a.aaa
     environment:
       <<: *common-env
-      SERVER_PORT: 8762
-      eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa:8761/eureka/, http://eureka3.antonio3a.aaa:8763/eureka/
+      eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa/eureka/, http://eureka3.antonio3a.aaa/eureka/
     ports:
-      - "8762:8762"
-    healthcheck:
-      test: "curl --fail --silent http://localhost:8762/actuator/health/readinessState | grep UP || exit 1"
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
+      - "80:8762"
 
-  antonio3a-eureka-3:
+  eureka-3:
     <<: *common
-    container_name: antonio3a-eureka-3
+    container_name: aaa-eureka-3
     hostname: eureka3.antonio3a.aaa
     environment:
       <<: *common-env
-      SERVER_PORT: 8763
-      eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa:8761/eureka/, http://eureka2.antonio3a.aaa:8762/eureka/
+      eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa/eureka/, http://eureka2.antonio3a.aaa/eureka/
     ports:
-      - "8763:8763"
-    healthcheck:
-      test: "curl --fail --silent http://localhost:8763/actuator/health/readinessState | grep UP || exit 1"
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
+      - "80:8763"
 
 networks:
-  antonio3a-bridge:
+  aaa-bridge:
     external: true
