@@ -29,7 +29,7 @@ services:
       <<: *common-env
       eureka.client.service-url.defaultZone: http://eureka2.antonio3a.aaa/eureka/, http://eureka3.antonio3a.aaa/eureka/
     ports:
-      - "80:8761"
+      - "8761:80"
 
   eureka-2:
     <<: *common
@@ -39,7 +39,7 @@ services:
       <<: *common-env
       eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa/eureka/, http://eureka3.antonio3a.aaa/eureka/
     ports:
-      - "80:8762"
+      - "8762:80"
 
   eureka-3:
     <<: *common
@@ -49,7 +49,7 @@ services:
       <<: *common-env
       eureka.client.service-url.defaultZone: http://eureka1.antonio3a.aaa/eureka/, http://eureka2.antonio3a.aaa/eureka/
     ports:
-      - "80:8763"
+      - "8763:80"
 
 networks:
   aaa-bridge:
