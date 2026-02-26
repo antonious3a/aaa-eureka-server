@@ -63,7 +63,7 @@
                     <image>
                         <builder>docker.io/antonio3a/bellsoft-buildpacks.builder:musl</builder>
                         <runImage>docker.io/antonio3a/bellsoft-buildpacks.alpaquita-run:musl</runImage>
-<!--                        <name>antonio3a/${project.artifactId}:latest</name>-->
+                        <name>antonio3a/${project.artifactId}:${project.version}</name>
                         <tags>
                             <tag>quay.io/antonio3a/${project.artifactId}:latest</tag>
                             <tag>docker.io/antonio3a/${project.artifactId}:latest</tag>
