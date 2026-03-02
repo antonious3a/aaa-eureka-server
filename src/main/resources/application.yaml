@@ -1,9 +1,9 @@
 server:
-  port: 8760
+  port: 8761
 
 spring:
   application:
-    name: antonio3a-eureka-server
+    name: aaa-discovery-service
     version: 1.0.0
 
 eureka:
